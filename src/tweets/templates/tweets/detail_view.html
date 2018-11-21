@@ -3,9 +3,12 @@
 
     <div class="container">
         <div class="row">
-
             <div class="col-md-12">
-
+                <p>
+                    {{ object.content }} <br>
+                    {{ object.user }} <br>
+                    {{ object.timestamp|timesince }} ago<br>
+                </p> <hr>
             </div> <!-- end col-md-12 -->
         </div> <!-- end row -->
     </div>  <!-- end containter -->
