@@ -1,5 +1,14 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 from .models import Tweet
+
+
+class TweetDetailView(DetailView):
+    model = Tweet
+
+
+class TweetListView(ListView):
+    model = Tweet
 
 
 def tweet_detail_view(request, pk):
