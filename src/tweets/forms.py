@@ -9,6 +9,6 @@ class TweetModelForm(forms.ModelForm):
 
     def clean_content(self, *args, **kwargs):
         content = self.cleaned_data.get("content")
-        if content == "pupa":
-            raise forms.ValidationError("Cannot be pupa")
+        if content == "bad word":
+            raise forms.ValidationError("Cannot be bad word")
         return content

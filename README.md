@@ -3,4 +3,4 @@
 
 #### Django lessons learned
 * Customized admin model forms
-* Customized form validation
+* Customized validators for form, model and model field
