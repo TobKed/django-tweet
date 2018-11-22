@@ -5,7 +5,7 @@ from .models import Tweet
 class TweetModelForm(forms.ModelForm):
     class Meta:
         model = Tweet
-        fields = "__all__"
+        fields = ["content"]
 
     def clean_content(self, *args, **kwargs):
         content = self.cleaned_data.get("content")
