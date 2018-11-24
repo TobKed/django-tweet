@@ -2,16 +2,18 @@
 {% block content %}
 
     <div class="container">
+        {% include "tweets/search_form.html" %}
         <div class="row">
-            <div class="col-md-12">
-                {% include "tweets/search_form.html" %}
-
+            <div class="col-sm-8 offset-sm-2">
+                <hr>
                 {% for object in object_list %}
-                    <p>
-                        {{ object.content }} <br>
-                        {{ object.user }} <br>
-                        {{ object.timestamp|timesince }} ago<br>
-                    </p> <hr>
+                    <div class="media">
+                      <div class="media-body">
+                            {{ object.content }} <br>
+                            via {{ object.user }} | {{ object.timestamp|timesince }} ago | <a href="{{ object.get_absolute_url }}">View</a>
+                      </div>
+                    </div>
+                    <hr>
                 {% empty %}
                     {% if request.GET.q %}
                         <p>No tweets found</p>
