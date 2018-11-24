@@ -1,14 +1,21 @@
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import TweetModelForm
-from .mixins import FormUserNeededMixin
+from .mixins import FormUserNeededMixin, UserOwnerMixin
 from .models import Tweet
 
 
 class TweetCreateView(FormUserNeededMixin, CreateView):
     form_class = TweetModelForm
     template_name = "tweets/tweet_create_form.html"
+    success_url = "/tweet/"
+
+
+class TweetUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
+    queryset = Tweet.objects.all()
+    form_class = TweetModelForm
+    template_name = "tweets/tweet_update_form.html"
     success_url = "/tweet/"
 
 
