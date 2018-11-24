@@ -23,7 +23,7 @@ from .views import home
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home', home, name='home-view'),
-    path('tweet/', include('tweets.urls')),
+    path('tweet/', include(('tweets.urls', 'tweet'), namespace='tweet')),
 ]
 
 if settings.DEBUG:

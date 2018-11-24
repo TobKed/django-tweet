@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-
-            </div> <!-- end col-md-12 -->
-        </div> <!-- end row -->
-    </div>  <!-- end containter -->
-
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Delete Tweet</legend>
+                <p>Are you sure you want to delete the tweet "{{ object }}"?</p>
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-danger" type="submit">Yes, Delete</button>
+            </div>
+        </form>
+    </div>
 {% endblock content %}
