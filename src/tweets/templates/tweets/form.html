@@ -1,8 +1,6 @@
-{% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-
-    <form method="POST">
+    <form method="POST" action="{% if action_url %} {{ action_url }} {% endif %}">
         {% csrf_token %}
         <fieldset class="form-group">
             {{ form|crispy }}

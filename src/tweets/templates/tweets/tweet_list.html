@@ -2,10 +2,17 @@
 {% block content %}
 
     <div class="container">
-        {% include "tweets/search_form.html" %}
         <div class="row">
-            <div class="col-sm-8 offset-sm-2">
-                <hr>
+            <div class="col-sm-3 col-xs-12 bg-danger">
+                <h1>{{ request.user }}</h1>
+            </div>
+            <div class="col-sm-9">
+                {% if not request.GET.q %}
+                    <div>
+                        {% include "tweets/form.html" with form=create_form action_url=create_url btn_title='Tweet' %}
+                    </div>
+                    <hr>
+                {% endif %}
                 {% for object in object_list %}
                     <div class="media">
                       <div class="media-body">
@@ -21,7 +28,7 @@
                         <p>No tweets yet</p>
                     {% endif %}
                 {%  endfor %}
-            </div> <!-- end col-md-12 -->
+            </div> <!-- end col-sm-9 -->
         </div> <!-- end row -->
     </div>  <!-- end containter -->
 

@@ -27,7 +27,7 @@ class TweetUpdateView(LoginRequiredMixin, UserOwnerMixin, UpdateView):
 
 class TweetDeleteView(LoginRequiredMixin, DeleteView):
     model = Tweet
-    success_url = reverse_lazy("tweet:tweet-list-view")
+    success_url = reverse_lazy("tweet:tweet-create-view")
 
 
 class TweetDetailView(DetailView):
@@ -46,6 +46,11 @@ class TweetListView(ListView):
             )
         return queryset
 
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context["create_form"] = TweetModelForm()
+        context["create_url"] = reverse_lazy("tweet:tweet-create-view")
+        return context
 
 def tweet_detail_view(request, pk):
     obj = Tweet.objects.get(id=pk)

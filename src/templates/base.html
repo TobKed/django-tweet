@@ -22,8 +22,9 @@
 <body>
 
 <main role="main" class="container">
+    {% include "navbar.html" %}
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 py-3">
 
             {% if messages %}
                 {% for message in messages %}

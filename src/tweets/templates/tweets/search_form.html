@@ -1,10 +1,4 @@
-<div class="row mt-2">
-    <div class="col-sm-12 text-center">
-        <form class="form-inline justify-content-center" method="GET" action="{% url "tweet:tweet-list-view" %}">
-            <div class="form-group">
-                <input class="form-control" name="q" type="text" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
-            </div>
-            <button class="btn btn-info mx-2" type="submit" href="">Search</button>
-        </form>
-    </div>
-</div>
+<form class="form-inline my-2 my-lg-0" method="GET" action="{% url "tweet:tweet-search-view" %}">
+    <input class="form-control mr-sm-2" name="q" type="text" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" href="">Search</button>
+</form>
