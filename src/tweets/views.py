@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import TweetModelForm
 from .mixins import FormUserNeededMixin
 from .models import Tweet
