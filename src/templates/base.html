@@ -17,11 +17,7 @@
 
     <link rel="stylesheet" type="text/css" href="{% static 'static/custom.css' %}">
 
-    {% if title %}
-        <title>Tweet-Me - {{ title }}</title>
-    {% else %}
-        <title>Tweet-Me</title>
-    {% endif %}
+    <title>{%  block title %}Tweet-Me{% endblock title %}</title>
 </head>
 <body>
 
