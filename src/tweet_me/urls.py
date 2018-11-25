@@ -24,7 +24,8 @@ from tweets.views import TweetListView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TweetListView.as_view(), name='home-view'),
-    path('tweet/', include(('tweets.urls', 'tweet'), namespace='tweet')),
+    path('tweet/', include(('tweets.urls', 'tweets'), namespace='tweet')),
+    path('api/tweet/', include(('tweets.api.urls', 'tweets'), namespace='tweet-api')),
 ]
 
 if settings.DEBUG:
