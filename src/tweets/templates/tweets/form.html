@@ -1,6 +1,6 @@
 {% load crispy_forms_tags %}
 {% block content %}
-    <form method="POST" action="{% if action_url %} {{ action_url }} {% endif %}">
+    <form {% if id %} id="{{ id }}" {% endif %} method="POST" action="{% if action_url %} {{ action_url }} {% endif %}">
         {% csrf_token %}
         <fieldset class="form-group">
             {{ form|crispy }}
@@ -9,5 +9,4 @@
             <button class="btn btn-outline-info" type="submit">{{ btn_title }}</button>
         </div>
     </form>
-
 {% endblock content %}
