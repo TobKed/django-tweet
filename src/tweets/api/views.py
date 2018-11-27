@@ -17,7 +17,7 @@ class TweetListAAPIView(generics.ListAPIView):
     serializer_class = TweetModelSerializer
 
     def get_queryset(self, *args, **kwargs):
-        queryset = Tweet.objects.all()
+        queryset = Tweet.objects.all().order_by("-timestamp")
         query = self.request.GET.get("q")
         if query is not None:
             queryset = queryset.filter(
