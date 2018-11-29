@@ -56,24 +56,32 @@ $(document).ready(function() {
     let query = getParameterByName("q");
     let tweetList = [];
 
+    function attachTweet(tweetValue, prepend) {
+        let dateDisplay = tweetValue.date_display;
+        let tweetContent = tweetValue.content;
+        let tweetUser = tweetValue.user;
+        let tweetFormattedHtml = "<div class=\"media\">" +
+                    "<div class=\"media-body\">" +
+                        tweetContent + "<br>" +
+                        "via" + tweetUser.username  + " | " + dateDisplay + " | <a href=\"#\">View</a>" +
+                    "</div>" +
+                "</div>" +
+                "<hr>"
+        if (prepend == true) {
+            $("#tweet-container").prepend(tweetFormattedHtml)
+        } else {
+            $("#tweet-container").append(tweetFormattedHtml);
+        }
+
+    }
+
     function parseTweets() {
         if (tweetList == 0) {
             $("#tweet-container").text("No tweets currently found.");
         } else {
             $.each(tweetList, function(key, value) {
                 let tweetKey = key;
-                let dateDisplay = value.date_display;
-                let tweetContent = value.content;
-                let tweetUser = value.user;
-                $("#tweet-container").append(
-                    "<div class=\"media\">" +
-                        "<div class=\"media-body\">" +
-                            tweetContent + "<br>" +
-                            "via" + tweetUser.username  + " | " + dateDisplay + " | <a href=\"#\">View</a>" +
-                        "</div>" +
-                    "</div>" +
-                    "<hr>"
-                )
+                attachTweet(value);
             })
         }
     }
@@ -95,28 +103,56 @@ $(document).ready(function() {
                 console.log(data);
             }
         });
-    };
+    }
     fetchTWeets();
+
+    let charsStart = 140;
+    let charsCurrent = 0;
+    $("#tweet-form").append("<span id='tweetCharsLeft'>" + charsStart + "</span>");
+
+    $("#tweet-form textarea").keyup(function(event) {
+        let tweetValue = $(this).val();
+        console.log(tweetValue.length);
+        charsCurrent = charsStart - tweetValue.length;
+        let spanChars = $("#tweetCharsLeft")
+        spanChars.text(charsCurrent);
+
+        if (charsCurrent > 0) {
+            // remove classes
+            spanChars.removeClass("grey-color");
+            spanChars.removeClass("red-color");
+        } else if (charsCurrent == 0) {
+            // add gray class
+            spanChars.removeClass("red-color");
+            spanChars.addClass("grey-color");
+        } else if (charsCurrent < 0) {
+            // add red class
+            spanChars.removeClass("grey-color");
+            spanChars.addClass("red-color");
+        }
+    });
 
     $("#tweet-form").submit(function (event) {
        event.preventDefault();
        let this_ = $(this);
        let formData = this_.serialize();
-
-       $.ajax({
-            url: "/api/tweet/create/",
-            data: formData,
-            method: "POST",
-            success: function(data) {
-                console.log(data);
-                fetchTWeets();
-            },
-            error: function(data) {
-                console.log("error");
-                console.log(data);
-            }
-        });
-
+       if (charsCurrent >= 0) {
+           $.ajax({
+               url: "/api/tweet/create/",
+               data: formData,
+               method: "POST",
+               success: function (data) {
+                   this_.find("input[type=text], textarea").val("");
+                   attachTweet(data, true);
+               },
+               error: function (data) {
+                   console.log("error");
+                   console.log(data);
+               }
+           });
+       } else {
+           console.log("Cannot send, twwet too long");
+       }
     });
 })
 </script>
