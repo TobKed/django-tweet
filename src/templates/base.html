@@ -63,5 +63,30 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 {% block script %} {% endblock script %}
+<script>
+    $(document).ready(function(){
+        let typingTimer;
+        let doneInterval = 800;
+        let searchInput = $("#navbar-search-form input[type=text]");
+        let searchQuery;
+
+        searchInput.keyup(function(event) {
+            searchQuery = $(this).val();
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(doneSearchTyping, doneInterval);
+        });
+
+        searchInput.keydown(function(event) {
+            clearTimeout(typingTimer);
+        });
+
+        function doneSearchTyping() {
+            if (searchQuery) {
+                let url = "/tweet/search/?q=" + searchQuery;
+                document.location.href = url;
+            }
+        };
+    })
+</script>
 </body>
 </html>
