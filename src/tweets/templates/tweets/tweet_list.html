@@ -16,21 +16,9 @@
                 <div id="tweet-container">
 
                 </div>
-{#                {% for object in object_list %}#}
-{#                    <div class="media">#}
-{#                      <div class="media-body">#}
-{#                            {{ object.content }} <br>#}
-{#                            via {{ object.user }} | {{ object.timestamp|timesince }} ago | <a href="{{ object.get_absolute_url }}">View</a>#}
-{#                      </div>#}
-{#                    </div>#}
-{#                    <hr>#}
-{#                {% empty %}#}
-{#                    {% if request.GET.q %}#}
-{#                        <p>No tweets found</p>#}
-{#                    {% else %}#}
-{#                        <p>No tweets yet</p>#}
-{#                    {% endif %}#}
-{#                {%  endfor %}#}
+
+                <a href="#" id="loadmore">Load More Tweets</a>
+
             </div> <!-- end col-sm-9 -->
         </div> <!-- end row -->
     </div>  <!-- end containter -->
@@ -55,6 +43,7 @@ $(document).ready(function() {
 
     let query = getParameterByName("q");
     let tweetList = [];
+    let nextTweetUrl;
 
     function attachTweet(tweetValue, prepend) {
         let dateDisplay = tweetValue.date_display;
@@ -86,16 +75,28 @@ $(document).ready(function() {
         }
     }
 
-    function fetchTWeets() {
+    function fetchTWeets(url) {
         console.log("fetching ...");
+        let fetchUrl;
+        if (!url) {
+            fetchUrl = "/api/tweet/";
+        } else {
+            fetchUrl = url;
+        };
+
         $.ajax({
-            url: "/api/tweet/",
+            url: fetchUrl,
             method: "GET",
             data: {
                 "q": query,
             },
             success: function(data) {
-                tweetList = data;
+                tweetList = data.results;
+                if (data.next) {
+                    nextTweetUrl = data.next;
+                } else {
+                    $("#loadmore").css("display", "none");
+                }
                 parseTweets();
             },
             error: function(data) {
@@ -105,6 +106,13 @@ $(document).ready(function() {
         });
     }
     fetchTWeets();
+
+    $("#loadmore").click(function(event) {
+        event.preventDefault();
+        if (nextTweetUrl) {
+            fetchTWeets(nextTweetUrl);
+        }
+    });
 
     let charsStart = 140;
     let charsCurrent = 0;
