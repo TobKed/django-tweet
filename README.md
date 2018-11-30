@@ -6,3 +6,6 @@
 * Customized validators for form, model and model field
 * Customized mixins
 * Testing
+* REST
+    - serialization
+    - pagination
