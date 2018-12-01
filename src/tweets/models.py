@@ -22,3 +22,6 @@ class Tweet(models.Model):
         if content == "another bad word":
             raise ValidationError("Content cannot be another bad word")
         return super().clean(*args, **kwargs)
+
+    class Meta:
+        ordering = ['-timestamp']

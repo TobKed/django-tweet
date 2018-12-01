@@ -4,13 +4,13 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-3 col-xs-12 bg-danger">
-                <h1>{{ request.user }}</h1>
+                <h1>{{ object.username }}</h1>
             </div>
             <div class="col-sm-9 col-xs-12">
-                <p>
-                    {{ object.content }} <br>
-                    {{ object.timestamp|timesince }} ago<br>
-                </p> <hr>
+                {% for tweet in object.tweet_set.all %}
+                    {{ tweet }} <hr>
+
+                {% endfor %}
             </div> <!-- end col-md-12 -->
         </div> <!-- end row -->
     </div>  <!-- end containter -->
