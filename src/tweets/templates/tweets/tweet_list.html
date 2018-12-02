@@ -52,7 +52,7 @@ $(document).ready(function() {
         let tweetFormattedHtml = "<div class=\"media\">" +
                     "<div class=\"media-body\">" +
                         tweetContent + "<br>" +
-                        "via" + tweetUser.username  + " | " + dateDisplay + " | <a href=\"#\">View</a>" +
+                        "via " + "<a href=\"" + tweetUser.url + "\">" + tweetUser.username  + "</a> | " + dateDisplay + " | <a href=\"#\">View</a>" +
                     "</div>" +
                 "</div>" +
                 "<hr>"
