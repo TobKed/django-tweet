@@ -5,12 +5,30 @@
         <div class="row">
             <div class="col-sm-3 col-xs-12 bg-danger">
                 <h1>{{ object.username }}</h1>
+                <p>Followers: {{ object.followed_by.count }}</p>
             </div>
             <div class="col-sm-9 col-xs-12">
                 {% for tweet in object.tweet_set.all %}
                     {{ tweet }} <hr>
 
                 {% endfor %}
+
+                <hr>
+                <h1>Following</h1>
+                {% for user in object.profile.following.all %}
+                    <a href="/{{ user.username }}">{{ user.username }}</a>
+                {% empty %}
+                    <h4>Not following any users</h4>
+                {% endfor %}
+
+                <hr>
+                <h1>Followed by</h1>
+                {% for profile in object.followed_by.all %}
+                    <a href="/{{ profile.user.username }}">{{ profile.user.username }}</a>
+                {% empty %}
+                    <h4>Not followed by any users</h4>
+                {% endfor %}
+
             </div> <!-- end col-md-12 -->
         </div> <!-- end row -->
     </div>  <!-- end containter -->
