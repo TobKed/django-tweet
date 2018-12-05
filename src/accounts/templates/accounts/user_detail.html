@@ -3,9 +3,10 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-sm-3 col-xs-12 bg-danger">
+            <div class="col-sm-3 col-xs-12">
                 <h1>{{ object.username }}</h1>
                 <p>Followers: c</p>
+                <p><a class="btn btn-link" href="{% url 'profile:user-follow-view' username=object.username %}">Follow</a></p>
             </div>
             <div class="col-sm-9 col-xs-12">
                 {% for tweet in object.tweet_set.all %}
