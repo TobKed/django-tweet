@@ -1,0 +1,13 @@
+language: python
+python:
+  - "3.6"
+cache: pip
+install:
+  - pip install -r src/requirements.txt
+before_script:
+  - cd src
+script:
+  - python manage.py test
+branches:
+  only:
+    - master

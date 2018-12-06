@@ -1,4 +1,4 @@
-# tweet_me
+# tweet_me  [![Build Status](https://travis-ci.org/TobKed/tweet_me.svg?branch=master)](https://travis-ci.org/TobKed/tweet_me)
 
 
 #### Django lessons learned
