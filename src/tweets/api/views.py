@@ -20,7 +20,8 @@ class TweetListAAPIView(generics.ListAPIView):
     pagination_class = StandardResultsPagination
 
     def get_queryset(self, *args, **kwargs):
-        queryset = Tweet.objects.all().order_by("-timestamp")
+        im_following = self.request.user.profile.get_following()
+        queryset = Tweet.objects.filter(user__in=im_following).order_by("-timestamp")
         query = self.request.GET.get("q")
         if query is not None:
             queryset = queryset.filter(

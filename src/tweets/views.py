@@ -52,6 +52,7 @@ class TweetListView(ListView):
         context["create_url"] = reverse_lazy("tweet:tweet-create-view")
         return context
 
+
 def tweet_detail_view(request, pk):
     obj = Tweet.objects.get(id=pk)
     context = {
