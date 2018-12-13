@@ -21,7 +21,9 @@ class TweetListAAPIView(generics.ListAPIView):
 
     def get_queryset(self, *args, **kwargs):
         im_following = self.request.user.profile.get_following()
-        queryset = Tweet.objects.filter(user__in=im_following).order_by("-timestamp")
+        queryset1 = Tweet.objects.filter(user__in=im_following)
+        queryset2 = Tweet.objects.filter(user=self.request.user)
+        queryset = (queryset1 | queryset2).distinct().order_by("-timestamp")
         query = self.request.GET.get("q")
         if query is not None:
             queryset = queryset.filter(
