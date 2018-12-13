@@ -18,12 +18,14 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from hashtags.views import HashTagView
 from .views import home
 from tweets.views import TweetListView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TweetListView.as_view(), name='home-view'),
+    path('tags/<str:hashtag>/', HashTagView.as_view(), name='hashtag-view'),
 
     path('tweet/', include(('tweets.urls', 'tweets'), namespace='tweet')),
     path('', include(('accounts.urls', 'profiles'), namespace='profile')),
