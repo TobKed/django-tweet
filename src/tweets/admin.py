@@ -5,7 +5,7 @@ from .models import Tweet
 
 class TweetModelAdmin(admin.ModelAdmin):
     form = TweetModelForm
-    fields = ["content", "user"]
+    fields = ["content", "user", "parent"]
 
 
 admin.site.register(Tweet, TweetModelAdmin)

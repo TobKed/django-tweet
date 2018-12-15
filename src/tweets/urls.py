@@ -1,6 +1,7 @@
 from django.urls import path
 from django.views.generic.base import RedirectView
 from .views import (
+    RetweetView,
     TweetListView,
     TweetDetailView,
     TweetCreateView,
@@ -15,4 +16,5 @@ urlpatterns = [
     path('<int:pk>/', TweetDetailView.as_view(), name='tweet-detail-view'),
     path('<int:pk>/update/', TweetUpdateView.as_view(), name='tweet-update-view'),
     path('<int:pk>/delete/', TweetDeleteView.as_view(), name='tweet-delete-view'),
+    path('<int:pk>/retweet/', RetweetView.as_view(), name='tweet-retweet-view'),
 ]
